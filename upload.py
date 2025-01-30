@@ -19,8 +19,8 @@ if not token:
 # 上传配置
 upload_url = "https://alist.265011.xyz/api/fs/form"
 patterns = ['AnyKernel3_KernelSU_Next-For-*', 'Image-KernelSU_Next-SUSFS-*']
-max_retries = 3
-retry_delay = 5
+max_retries = 10
+retry_delay = 10
 
 # 获取匹配文件列表
 matched_files = []
