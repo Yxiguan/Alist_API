@@ -8,16 +8,16 @@ import fnmatch
 
 def login():
     """获取token"""
-    url = 'https://alist.xiguanle.ip-ddns.com/api/auth/login' #输入Alist地址
-    d = {'Username': 'xiguan', 'Password': 'yang200300'} #输入账户密码
-    r = requests.post(url, data=d)
+    url = 'https://alist.265011.xyz/api/auth/login' #输入Alist地址
+    d = {'Username': 'xiguan', 'Password': '123654789'} #输入账户密码
+    r = requests.post(url, data=d, verify=False)
     data = json.loads(r.text)
     return data.get('data').get('token')
 
 
 def list_files(token, dir_path, max_retries=3, retry_delay=5):
     """获取目录文件列表"""
-    url = "https://alist.xiguanle.ip-ddns.com/api/fs/list"
+    url = "https://alist.265011.xyz/api/fs/list"
     headers = {
         'Authorization': token,
         'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ def list_files(token, dir_path, max_retries=3, retry_delay=5):
     
     for retry in range(max_retries):
         try:
-            response = requests.post(url, headers=headers, json=data)
+            response = requests.post(url, headers=headers, json=data, verify=False)
             response.raise_for_status()
             files = response.json().get('data', {}).get('content', [])
             return [f['name'] for f in files if f.get('name')]
@@ -38,7 +38,7 @@ def list_files(token, dir_path, max_retries=3, retry_delay=5):
 
 def remove_files(token, file_names, dir_path, max_retries=3, retry_delay=5):
     """批量删除文件"""
-    url = "https://alist.xiguanle.ip-ddns.com/api/fs/remove"
+    url = "https://alist.265011.xyz/api/fs/remove"
     headers = {
         'Authorization': token,
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ def remove_files(token, file_names, dir_path, max_retries=3, retry_delay=5):
     
     for retry in range(max_retries):
         try:
-            response = requests.post(url, headers=headers, json=data)
+            response = requests.post(url, headers=headers, json=data, verify=False)
             response.raise_for_status()
             print(f"成功删除 {len(file_names)} 个文件")
             return
@@ -63,7 +63,7 @@ def remove_files(token, file_names, dir_path, max_retries=3, retry_delay=5):
 
 if __name__ == "__main__":
     token = login()
-    dir_path = "/本机"
+    dir_path = "/"
     patterns = [
         "Image-KernelSU_Next-SUSFS-*",
         "AnyKernel3_KernelSU_Next-For-*"

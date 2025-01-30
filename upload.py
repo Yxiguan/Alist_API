@@ -6,9 +6,9 @@ import glob
 import time
 
 # 登录
-login_url = 'https://alist.xiguanle.ip-ddns.com/api/auth/login' #输入Alist地址
-credentials = {'Username': 'xiguan', 'Password': 'yang200300'} #输入账户密码
-response = requests.post(login_url, data=credentials)
+login_url = 'https://alist.265011.xyz/api/auth/login' #输入Alist地址
+credentials = {'Username': 'xiguan', 'Password': '123654789'} #输入账户密码
+response = requests.post(login_url, data=credentials, verify=False)
 auth_data = json.loads(response.text)
 token = auth_data.get('data', {}).get('token')
 
@@ -17,7 +17,7 @@ if not token:
     exit()
 
 # 上传配置
-upload_url = "https://alist.xiguanle.ip-ddns.com/api/fs/form"
+upload_url = "https://alist.265011.xyz/api/fs/form"
 patterns = ['AnyKernel3_KernelSU_Next-For-*', 'Image-KernelSU_Next-SUSFS-*']
 max_retries = 3
 retry_delay = 5
@@ -44,7 +44,7 @@ for filename in matched_files:
 
                 # 构造请求头
                 encoded_filename = quote(filename, 'utf-8')
-                target_path_o = f'/本机/{encoded_filename}' #上传路径
+                target_path_o = f'/{encoded_filename}' #上传路径
                 target_path = target_path_o.encode('utf-8')
                 
                 headers = {
@@ -54,7 +54,7 @@ for filename in matched_files:
                 }
 
                 # 发送请求
-                response = requests.put(upload_url, data=multipart_data, headers=headers)
+                response = requests.put(upload_url, data=multipart_data, headers=headers, verify=False)
 
                 if response.status_code == 200:
                     print(f"✓ 成功上传 {filename}")
